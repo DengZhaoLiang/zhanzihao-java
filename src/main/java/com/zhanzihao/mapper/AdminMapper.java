@@ -1,15 +1,15 @@
-package com.zhanzihao.mapper.admin.user;
+package com.zhanzihao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zhanzihao.model.User;
+import com.zhanzihao.model.Admin;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 /**
  * @author zhanzihao
- * 2021-01-31
+ * 2021-01-30
  */
 @Mapper
 @Repository
-public interface UserMapper extends BaseMapper<User> {
+public interface AdminMapper extends BaseMapper<Admin> {
 }

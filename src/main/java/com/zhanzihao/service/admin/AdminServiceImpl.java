@@ -6,7 +6,7 @@ import com.zhanzihao.assembler.AdminAssembler;
 import com.zhanzihao.dto.admin.AdminModifyRequest;
 import com.zhanzihao.dto.admin.AdminRequest;
 import com.zhanzihao.dto.admin.AdminResponse;
-import com.zhanzihao.mapper.admin.admin.AdminMapper;
+import com.zhanzihao.mapper.AdminMapper;
 import com.zhanzihao.model.Admin;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;

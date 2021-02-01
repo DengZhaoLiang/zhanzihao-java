@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zhanzihao.assembler.UserAssembler;
 import com.zhanzihao.dto.admin.user.AdminUserRequest;
 import com.zhanzihao.dto.admin.user.AdminUserResponse;
-import com.zhanzihao.mapper.admin.user.UserMapper;
+import com.zhanzihao.mapper.UserMapper;
 import com.zhanzihao.model.User;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
