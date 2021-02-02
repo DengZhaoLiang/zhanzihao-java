@@ -59,6 +59,7 @@ public class AdminProductServiceImpl implements AdminProductService {
 
     @Override
     public void insertProduct(Product product) {
+        product.setId(null);
         product.setCreatedAt(Instant.now().getEpochSecond());
         product.setUpdatedAt(Instant.now().getEpochSecond());
         mProductMapper.insert(product);
