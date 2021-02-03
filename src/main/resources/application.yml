@@ -64,3 +64,38 @@ mybatis-plus:
 
 server:
   port: 9527
+  base:
+    url: http://localhost:9527
+
+# 支付宝支付
+# 通信协议，通常填写https
+alipay:
+  protocol: https
+  # 网关域名
+  # 线上为：openapi.alipay.com
+  # 沙箱为：openapi.alipaydev.com
+  gatewayHost: openapi.alipay.com
+  # AppId
+  appId:
+  # 签名类型，Alipay Easy SDK只推荐使用RSA2，估此处固定填写RSA2
+  signType: RSA2
+  # 支付宝公钥
+  alipayPublicKey:
+  # 应用私钥
+  merchantPrivateKey:
+  # 应用公钥证书文件路径
+  merchantCertPath:
+  # 支付宝公钥证书文件路径
+  alipayCertPath:
+  # 异步通知回调地址（可选）
+  notifyUrl: ${server.base.url}/api/alipay/notify
+  # AES密钥（可选）
+  encryptKey:
+  # 忽略证书校验（可选）
+  ignoreSSL: false
+
+# 支付过期时间
+pay:
+  timeout: 5
+  # 支付跳过开关
+  switch.skip: false
