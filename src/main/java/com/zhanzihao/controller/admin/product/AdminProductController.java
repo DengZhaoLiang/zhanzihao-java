@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @RestController
 @RequestMapping("/api/admin/product")
-public class ProductController {
+public class AdminProductController {
 
     @Autowired
     private AdminProductService mAdminProductService;

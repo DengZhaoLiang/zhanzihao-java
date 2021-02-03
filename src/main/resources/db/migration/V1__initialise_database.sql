@@ -58,7 +58,7 @@ CREATE TABLE `payment`
     `user_id`    BIGINT(20) UNSIGNED     NOT NULL COMMENT '用户ID',
     `fee`        DECIMAL(12, 2) UNSIGNED NOT NULL COMMENT '订单金额',
     `remain_fee` DECIMAL(12, 2) UNSIGNED NOT NULL COMMENT '剩余可退款金额',
-    `status`     INT(1) UNSIGNED         NOT NULL COMMENT '付款状态:0-待支付,1-已支付,2-已关闭,3-已退款',
+    `status`     INT(1) UNSIGNED         NOT NULL DEFAULT 1 COMMENT '付款状态:1-待支付,2-已支付,3-已关闭,4-已退款',
     `pay_mode`   INT(1) UNSIGNED                  DEFAULT 0 COMMENT '支付类型 1 微信 2 支付宝',
     `type`       INT(1) UNSIGNED         NOT NULL COMMENT '订单类型',
     `pay_at`     BIGINT(13) UNSIGNED COMMENT '支付成功时间',
@@ -83,3 +83,24 @@ CREATE TABLE `order_sn`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci COMMENT '订单号表';
+
+-- 订单表
+CREATE TABLE `order`
+(
+    `id`         BIGINT(20) UNSIGNED     NOT NULL AUTO_INCREMENT,
+    `order_sn`   CHAR(32)                NOT NULL DEFAULT '' COMMENT '订单号',
+    `user_id`    BIGINT(20) UNSIGNED     NOT NULL COMMENT '用户ID',
+    `product_id`    BIGINT(20) UNSIGNED     NOT NULL COMMENT '商品ID',
+    `name`       VARCHAR(255)   NOT NULL DEFAULT '' COMMENT '商品名',
+    `fee`        DECIMAL(12, 2) UNSIGNED NOT NULL COMMENT '购买金额',
+    `pay_at`     BIGINT(13) UNSIGNED COMMENT '支付成功时间',
+    `status`     INT(1) UNSIGNED         NOT NULL DEFAULT 1 COMMENT '付款状态 :1-待支付,2-已支付',
+    `created_at` BIGINT(13) UNSIGNED     NOT NULL DEFAULT 0 COMMENT '创建时间',
+    `updated_at` BIGINT(13) UNSIGNED     NOT NULL DEFAULT 0 COMMENT '更新时间',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `order_order_sn_unique` (`order_sn`),
+    KEY `order_user_id_index` (`user_id`),
+    KEY `order_product_id_index` (`product_id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_unicode_ci COMMENT '订单表';
