@@ -7,8 +7,8 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -18,8 +18,8 @@ import java.util.function.Consumer;
 public class SpringContextUtils implements InitializingBean, ApplicationContextAware {
     private static volatile Environment environment;
     private static volatile ApplicationContext applicationContext;
-    private static List<Consumer<ApplicationContext>> contextConsumers = new LinkedList();
-    private static List<Consumer<Environment>> environmentConsumers = new LinkedList();
+    private static List<Consumer<ApplicationContext>> contextConsumers = new CopyOnWriteArrayList<>();
+    private static List<Consumer<Environment>> environmentConsumers = new CopyOnWriteArrayList<>();
     private static ReadWriteLock contextLock = new ReentrantReadWriteLock();
     private static ReadWriteLock environmentLock = new ReentrantReadWriteLock();
     @Autowired
