@@ -64,6 +64,25 @@ public class SpringContextUtils implements InitializingBean, ApplicationContextA
         }
     }
 
+    public void setApplicationContext(ApplicationContext context) {
+        if (applicationContext == null) {
+            applicationContext = context;
+            Lock lock = contextLock.readLock();
+
+            try {
+                lock.lock();
+                contextConsumers.forEach((consumer) -> {
+                    consumer.accept(context);
+                });
+                contextConsumers = null;
+                contextLock = null;
+            } finally {
+                lock.unlock();
+            }
+
+        }
+    }
+
     public static void getApplicationContextAsync(Consumer<ApplicationContext> consumer) {
         if (applicationContext == null) {
             Lock lock = contextLock.writeLock();
@@ -110,25 +129,6 @@ public class SpringContextUtils implements InitializingBean, ApplicationContextA
                 });
                 environmentConsumers = null;
                 environmentLock = null;
-            } finally {
-                lock.unlock();
-            }
-
-        }
-    }
-
-    public void setApplicationContext(ApplicationContext context) {
-        if (applicationContext == null) {
-            applicationContext = context;
-            Lock lock = contextLock.readLock();
-
-            try {
-                lock.lock();
-                contextConsumers.forEach((consumer) -> {
-                    consumer.accept(context);
-                });
-                contextConsumers = null;
-                contextLock = null;
             } finally {
                 lock.unlock();
             }

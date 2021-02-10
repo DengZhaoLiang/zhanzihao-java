@@ -18,6 +18,10 @@ public class MyWebMVC implements WebMvcConfigurer {
         //配置静态资源处理
         registry.addResourceHandler("/image/**")
                 .addResourceLocations("file:" + System.getProperty("user.dir") + "/image/");
+
+        //配置静态资源处理
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/static/");
     }
 
     /**

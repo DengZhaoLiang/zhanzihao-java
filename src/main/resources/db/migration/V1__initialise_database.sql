@@ -90,8 +90,8 @@ CREATE TABLE `order`
     `id`         BIGINT(20) UNSIGNED     NOT NULL AUTO_INCREMENT,
     `order_sn`   CHAR(32)                NOT NULL DEFAULT '' COMMENT '订单号',
     `user_id`    BIGINT(20) UNSIGNED     NOT NULL COMMENT '用户ID',
-    `product_id`    BIGINT(20) UNSIGNED     NOT NULL COMMENT '商品ID',
-    `name`       VARCHAR(255)   NOT NULL DEFAULT '' COMMENT '商品名',
+    `product_id` BIGINT(20) UNSIGNED     NOT NULL COMMENT '商品ID',
+    `name`       VARCHAR(255)            NOT NULL DEFAULT '' COMMENT '商品名',
     `fee`        DECIMAL(12, 2) UNSIGNED NOT NULL COMMENT '购买金额',
     `pay_at`     BIGINT(13) UNSIGNED COMMENT '支付成功时间',
     `status`     INT(1) UNSIGNED         NOT NULL DEFAULT 1 COMMENT '付款状态 :1-待支付,2-已支付',
@@ -104,3 +104,22 @@ CREATE TABLE `order`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci COMMENT '订单表';
+
+
+-- 购物车
+CREATE TABLE `card`
+(
+    `id`         BIGINT(20) UNSIGNED     NOT NULL AUTO_INCREMENT,
+    `session_id` VARCHAR(255)            NOT NULL DEFAULT '' COMMENT '会话ID',
+    `product_id` BIGINT(20) UNSIGNED     NOT NULL COMMENT '商品ID',
+    `number`     INT(3) UNSIGNED     NOT NULL COMMENT '购买数量',
+    `status`     TINYINT(1) UNSIGNED         NOT NULL DEFAULT 1 COMMENT '付款状态 :1-有效,0-无效',
+    `created_at` BIGINT(13) UNSIGNED     NOT NULL DEFAULT 0 COMMENT '创建时间',
+    `updated_at` BIGINT(13) UNSIGNED     NOT NULL DEFAULT 0 COMMENT '更新时间',
+    PRIMARY KEY (`id`),
+    KEY `card_product_id_index` (`product_id`),
+    KEY `card_number_index` (`number`),
+    KEY `card_status_index` (`status`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_unicode_ci COMMENT '购物车';

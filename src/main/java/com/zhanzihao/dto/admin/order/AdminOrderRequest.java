@@ -2,8 +2,6 @@ package com.zhanzihao.dto.admin.order;
 
 import lombok.Data;
 
-import java.math.BigDecimal;
-
 /**
  * @author zhanzihao
  * 2021-02-03
