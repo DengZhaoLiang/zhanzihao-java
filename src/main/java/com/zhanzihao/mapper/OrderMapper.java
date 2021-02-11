@@ -19,4 +19,6 @@ public interface OrderMapper extends BaseMapper<Order> {
     List<Order> listByConditions(@Param("orderSn") String orderSn,
                                  @Param("name") String name,
                                  @Param("status") Integer status);
+
+    List<Order> listByUserId(@Param("userId") Long userId);
 }

@@ -104,3 +104,19 @@ CREATE TABLE `order`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci COMMENT '订单表';
+
+-- 地址表
+CREATE TABLE `address`
+(
+    `id`         BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `name`       VARCHAR(255)        NOT NULL DEFAULT '' COMMENT '收件人',
+    `phone`      VARCHAR(255)        NOT NULL DEFAULT '' COMMENT '电话号码',
+    `detail`     VARCHAR(255)        NOT NULL DEFAULT '' COMMENT '详细地址',
+    `user_id`    BIGINT(20) UNSIGNED NOT NULL COMMENT '用户ID',
+    `created_at` BIGINT(13) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+    `updated_at` BIGINT(13) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
+    PRIMARY KEY (`id`),
+    KEY `address_user_id_index` (`user_id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_unicode_ci COMMENT '地址表';

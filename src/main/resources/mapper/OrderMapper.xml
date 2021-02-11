@@ -16,4 +16,12 @@
             </if>
         </where>
     </select>
+    <select id="listByUserId" resultType="com.zhanzihao.model.Order">
+        select * from `order`
+        <where>
+            <if test="userId != null">
+                `user_id` = #{userId}
+            </if>
+        </where>
+    </select>
 </mapper>

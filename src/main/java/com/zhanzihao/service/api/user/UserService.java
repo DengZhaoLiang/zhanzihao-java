@@ -18,4 +18,9 @@ public interface UserService {
      * 注册
      */
     void register(User user);
+
+    /**
+     * 更新用户
+     */
+    User updateUser(User user);
 }
