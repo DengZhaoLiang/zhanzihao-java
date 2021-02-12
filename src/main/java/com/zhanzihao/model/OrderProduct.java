@@ -12,11 +12,11 @@ import java.math.BigDecimal;
  * Created By 2021/2/3
  */
 @Data
-@TableName(value = "order")
-public class Order {
+@TableName(value = "order_product")
+public class OrderProduct {
 
     /**
-     * 订单表ID
+     * 订单商品表ID
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
@@ -27,29 +27,29 @@ public class Order {
     private String orderSn;
 
     /**
-     * 用户ID
+     * 商品ID
      */
-    private Long userId;
+    private Long productId;
 
     /**
-     * 总价格
+     * 商品名
      */
-    private BigDecimal totalPrice;
+    private String productName;
 
     /**
-     * 地址ID
+     * 商品主图
      */
-    private Long addressId;
+    private String productImage;
 
     /**
-     * 支付成功时间
+     * 单价
      */
-    private Long payAt;
+    private BigDecimal productPrice;
 
     /**
-     * 付款状态 :1-待支付,2-已支付
+     * 购买数量
      */
-    private Integer status;
+    private Integer quantity;
 
     /**
      * 创建时间

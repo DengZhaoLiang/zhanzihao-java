@@ -2,8 +2,8 @@ package com.zhanzihao.service.alipay;
 
 import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.kernel.util.ResponseChecker;
-import com.alipay.easysdk.payment.app.models.AlipayTradeAppPayResponse;
 import com.alipay.easysdk.payment.common.models.AlipayTradeQueryResponse;
+import com.alipay.easysdk.payment.page.models.AlipayTradePagePayResponse;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -59,8 +59,8 @@ public class AliPayServiceImpl implements AliPayService {
      * 支付宝下单
      */
     @Override
-    public AlipayTradeAppPayResponse createOrder(Long userId, String orderNo, BigDecimal fee,
-                                                 String goodsName, PaymentType paymentType) {
+    public AlipayTradePagePayResponse createOrder(Long userId, String orderNo, BigDecimal fee,
+                                                  String goodsName, PaymentType paymentType) {
         // TODO 测试价格
         fee = new BigDecimal("0.01");
 
@@ -73,13 +73,10 @@ public class AliPayServiceImpl implements AliPayService {
         if (StringUtils.isEmpty(goodsName)) {
             throw new IllegalArgumentException("商品名称不能为为空");
         }
-        createPayment(userId, orderNo, fee, paymentType);
-        AlipayTradeAppPayResponse response;
+//        createPayment(userId, orderNo, fee, paymentType);
+        AlipayTradePagePayResponse response;
         try {
-            response = Factory.Payment.App()
-                    // 设置该笔订单允许的最晚付款时间，逾期将关闭交易。
-                    .optional("timeout_express", payTimeout + "m")
-                    .pay(goodsName, orderNo, String.valueOf(fee));
+            response = Factory.Payment.Page().optional("qr_pay_mode", 4).pay(goodsName, orderNo, fee.toString(), "https://www.baidu.com");
             log.info("支付宝下单成功:{}", mObjectMapper.writeValueAsString(response));
         } catch (Exception e) {
             log.error("支付宝下单失败:{}", orderNo);

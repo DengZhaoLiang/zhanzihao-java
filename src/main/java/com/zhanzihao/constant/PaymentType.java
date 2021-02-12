@@ -13,6 +13,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum PaymentType implements EnumCode, PaymentHandler {
 
+    /**
+     * 购买商品
+     */
+    BUY(1, null),
+
     ;
 
 

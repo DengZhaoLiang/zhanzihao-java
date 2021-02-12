@@ -1,24 +1,21 @@
-package com.zhanzihao.model;
+package com.zhanzihao.dto.api.order;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.zhanzihao.model.Address;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
- * @author Liang
- * Created By 2021/2/3
+ * @author zhanzihao
+ * 2021-02-12
  */
 @Data
-@TableName(value = "order")
-public class Order {
+public class OrderResponse {
 
     /**
      * 订单表ID
      */
-    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
@@ -32,14 +29,14 @@ public class Order {
     private Long userId;
 
     /**
-     * 总价格
+     * 购买金额
      */
     private BigDecimal totalPrice;
 
     /**
-     * 地址ID
+     * 地址
      */
-    private Long addressId;
+    private Address address;
 
     /**
      * 支付成功时间
@@ -60,4 +57,9 @@ public class Order {
      * 更新时间
      */
     private Long updatedAt;
+
+    /**
+     * 产品列表
+     */
+    private List<ProductResponse> products;
 }

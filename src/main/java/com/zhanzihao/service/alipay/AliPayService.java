@@ -1,6 +1,6 @@
 package com.zhanzihao.service.alipay;
 
-import com.alipay.easysdk.payment.app.models.AlipayTradeAppPayResponse;
+import com.alipay.easysdk.payment.page.models.AlipayTradePagePayResponse;
 import com.zhanzihao.constant.PaymentType;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +15,8 @@ public interface AliPayService {
     /**
      * 支付宝下单
      */
-    AlipayTradeAppPayResponse createOrder(Long userId, String orderNo, BigDecimal fee,
-                                          String goodsName, PaymentType paymentType);
+    AlipayTradePagePayResponse createOrder(Long userId, String orderNo, BigDecimal fee,
+                                           String goodsName, PaymentType paymentType);
 
     /**
      * 支付宝订单回调

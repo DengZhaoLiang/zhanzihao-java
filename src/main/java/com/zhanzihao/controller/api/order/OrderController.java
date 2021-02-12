@@ -1,6 +1,6 @@
 package com.zhanzihao.controller.api.order;
 
-import com.zhanzihao.model.Order;
+import com.zhanzihao.dto.api.order.OrderResponse;
 import com.zhanzihao.service.api.order.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,7 +24,12 @@ public class OrderController {
     private OrderService mOrderService;
 
     @GetMapping("/{userId}")
-    public Page<Order> pageOrders(Pageable pageable, @PathVariable Long userId) {
+    public Page<OrderResponse> pageOrders(Pageable pageable, @PathVariable Long userId) {
         return mOrderService.pageOrders(userId, pageable);
+    }
+
+    @GetMapping("")
+    public void createOrder() {
+        mOrderService.createOrder();
     }
 }
