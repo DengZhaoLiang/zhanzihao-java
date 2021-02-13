@@ -33,7 +33,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * @author Liang
@@ -70,10 +69,15 @@ public class AliPayServiceImpl implements AliPayService {
         if (StringUtils.isEmpty(goodsName)) {
             throw new IllegalArgumentException("商品名称不能为为空");
         }
-        createPayment(userId, orderNo, fee, paymentType);
+        QueryWrapper<Payment> wrapper = new QueryWrapper<>();
+        wrapper.eq("order_sn", orderNo);
+        Payment payment = mPaymentMapper.selectOne(wrapper);
+        if (ObjectUtils.isEmpty(payment)) {
+            createPayment(userId, orderNo, fee, paymentType);
+        }
         AlipayTradePagePayResponse response;
         try {
-            response = Factory.Payment.Page().pay(goodsName, orderNo, fee.toString(), "http://localhost:8000/order?step=4");
+            response = Factory.Payment.Page().pay(goodsName, orderNo, fee.toString(), "http://localhost:8000/#/order?step=4");
             log.info("支付宝下单成功:{}", mObjectMapper.writeValueAsString(response));
         } catch (Exception e) {
             log.error("支付宝下单失败:{}", orderNo);
@@ -90,11 +94,11 @@ public class AliPayServiceImpl implements AliPayService {
         QueryWrapper<Payment> wrapper = new QueryWrapper<>();
         wrapper.eq("order_sn", orderSn);
         Payment payment = mPaymentMapper.selectOne(wrapper);
-        if (payment == null || ObjectUtils.nullSafeEquals(PaymentStatus.NOT_PAY.getCode(), payment.getStatus())) {
+        if (payment == null || !ObjectUtils.nullSafeEquals(PaymentStatus.NOT_PAY.getCode(), payment.getStatus())) {
             // 不是待支付的状态 避免重复处理
             return;
         }
-            paySuccess(payment, Instant.now());
+        paySuccess(payment, Instant.now());
     }
 
     /**

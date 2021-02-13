@@ -13,6 +13,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface OrderAssembler {
 
+    @Mapping(target = "name", ignore = true)
     AdminOrderResponse toResponse(Order order);
 
     @Mapping(target = "products", ignore = true)

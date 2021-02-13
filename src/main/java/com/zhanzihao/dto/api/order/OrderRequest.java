@@ -2,6 +2,7 @@ package com.zhanzihao.dto.api.order;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -10,6 +11,16 @@ import java.util.List;
  */
 @Data
 public class OrderRequest {
+
+    /**
+     * 订单号
+     */
+    private String orderSn;
+
+    /**
+     * 总金额
+     */
+    private BigDecimal totalPrice;
 
     /**
      * 用户ID

@@ -3,6 +3,8 @@
 <mapper namespace="com.zhanzihao.mapper.OrderSnMapper">
     
     <select id="existsByOrderSn" resultType="com.zhanzihao.model.OrderSn">
-        select * from `order_sn` where `no` = '${orderSn}'
+        select *
+        from `order_sn`
+        where `no` = '${orderSn}'
     </select>
 </mapper>

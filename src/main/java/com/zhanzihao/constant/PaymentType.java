@@ -1,5 +1,6 @@
 package com.zhanzihao.constant;
 
+import com.zhanzihao.handler.payment.BuyHandler;
 import com.zhanzihao.handler.payment.PaymentHandler;
 import com.zhanzihao.model.Payment;
 import com.zhanzihao.utils.SpringContextUtils;
@@ -16,7 +17,7 @@ public enum PaymentType implements EnumCode, PaymentHandler {
     /**
      * 购买商品
      */
-    BUY(1, null),
+    BUY(1, BuyHandler.class),
 
     ;
 

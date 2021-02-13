@@ -25,7 +25,7 @@ public class AdminOrderResponse {
     /**
      * 购买金额
      */
-    private BigDecimal fee;
+    private BigDecimal totalPrice;
 
     /**
      * 商品名

@@ -3,7 +3,6 @@ package com.zhanzihao.service.alipay;
 import com.alipay.easysdk.payment.page.models.AlipayTradePagePayResponse;
 import com.zhanzihao.constant.PaymentType;
 
-import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 
 /**

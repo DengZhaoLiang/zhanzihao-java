@@ -1,6 +1,5 @@
 package com.zhanzihao.dto.api.order;
 
-import com.alipay.easysdk.payment.page.models.AlipayTradePagePayResponse;
 import lombok.Data;
 
 import java.math.BigDecimal;

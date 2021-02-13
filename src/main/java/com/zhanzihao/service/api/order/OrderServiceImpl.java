@@ -1,6 +1,5 @@
 package com.zhanzihao.service.api.order;
 
-import com.alipay.easysdk.payment.page.models.AlipayTradePagePayResponse;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zhanzihao.assembler.OrderAssembler;
 import com.zhanzihao.assembler.OrderProductAssembler;
@@ -18,6 +17,7 @@ import com.zhanzihao.model.Product;
 import com.zhanzihao.service.alipay.AliPayService;
 import com.zhanzihao.utils.OrderSnGenerateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -92,6 +92,14 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public AliPayResponse createOrder(OrderRequest request) {
+
+        if (Strings.isNotBlank(request.getOrderSn()) && !Objects.isNull(request.getTotalPrice())) {
+            AliPayResponse response = new AliPayResponse();
+            response.setOrderSn(request.getOrderSn());
+            response.setTotalPrice(request.getTotalPrice());
+            response.setResponse(mAliPayService.createOrder(request.getUserId(), request.getOrderSn(), request.getTotalPrice(), Instant.now().getEpochSecond() + "", PaymentType.BUY).body);
+            return response;
+        }
         // 生成订单号
         String orderSn = mOrderSnGenerateUtil.generate();
 

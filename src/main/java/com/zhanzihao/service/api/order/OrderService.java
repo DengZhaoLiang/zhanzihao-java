@@ -1,6 +1,5 @@
 package com.zhanzihao.service.api.order;
 
-import com.alipay.easysdk.payment.page.models.AlipayTradePagePayResponse;
 import com.zhanzihao.dto.api.order.AliPayResponse;
 import com.zhanzihao.dto.api.order.OrderRequest;
 import com.zhanzihao.dto.api.order.OrderResponse;
