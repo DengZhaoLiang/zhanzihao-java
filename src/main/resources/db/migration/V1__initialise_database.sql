@@ -42,6 +42,7 @@ CREATE TABLE `product`
     `status`     TINYINT(1)     NOT NULL DEFAULT 0 COMMENT '状态 0-下架 1-上架',
     `price`      DECIMAL(10, 2) NOT NULL DEFAULT 0 COMMENT '价格',
     `inventory`  BIGINT(10)     NOT NULL DEFAULT 0 COMMENT '库存量',
+    `detail`     LONGTEXT COMMENT '图文详情',
     `created_at` BIGINT(13)     NOT NULL DEFAULT 0 COMMENT '创建时间',
     `updated_at` BIGINT(13)     NOT NULL DEFAULT 0 COMMENT '更新时间',
     PRIMARY KEY (`id`),

@@ -46,6 +46,11 @@ public class Product {
     private Integer status;
 
     /**
+     * 图文详情
+     */
+    private String detail;
+
+    /**
      * 创建时间
      */
     private Long createdAt;
