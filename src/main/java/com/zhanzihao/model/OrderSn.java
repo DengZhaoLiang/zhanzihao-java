@@ -21,7 +21,7 @@ public class OrderSn {
     /**
      * 订单号
      */
-    private String orderSn;
+    private String no;
 
     /**
      * 创建时间

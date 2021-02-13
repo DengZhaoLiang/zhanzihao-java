@@ -21,4 +21,10 @@ public interface OrderMapper extends BaseMapper<Order> {
                                  @Param("status") Integer status);
 
     List<Order> listByUserId(@Param("userId") Long userId);
+
+    int insertOne(@Param("order") Order order);
+
+    Order selectByOrderSn(@Param("orderSn") String orderSn);
+
+    void updateStatus(@Param("orderSn") String orderSn, @Param("status") int status);
 }

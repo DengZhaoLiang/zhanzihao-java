@@ -1,5 +1,8 @@
 package com.zhanzihao.service.api.order;
 
+import com.alipay.easysdk.payment.page.models.AlipayTradePagePayResponse;
+import com.zhanzihao.dto.api.order.AliPayResponse;
+import com.zhanzihao.dto.api.order.OrderRequest;
 import com.zhanzihao.dto.api.order.OrderResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,5 +21,5 @@ public interface OrderService {
     /**
      * 创建订单
      */
-    void createOrder();
+    AliPayResponse createOrder(OrderRequest request);
 }

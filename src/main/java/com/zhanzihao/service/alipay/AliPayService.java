@@ -21,5 +21,5 @@ public interface AliPayService {
     /**
      * 支付宝订单回调
      */
-    void aliPayNotify(HttpServletRequest request);
+    void aliPayNotify(String orderSn);
 }

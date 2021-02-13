@@ -61,9 +61,6 @@ public class AliPayServiceImpl implements AliPayService {
     @Override
     public AlipayTradePagePayResponse createOrder(Long userId, String orderNo, BigDecimal fee,
                                                   String goodsName, PaymentType paymentType) {
-        // TODO 测试价格
-        fee = new BigDecimal("0.01");
-
         if (StringUtils.isEmpty(orderNo)) {
             throw new IllegalArgumentException("订单号不能为空");
         }
@@ -73,10 +70,10 @@ public class AliPayServiceImpl implements AliPayService {
         if (StringUtils.isEmpty(goodsName)) {
             throw new IllegalArgumentException("商品名称不能为为空");
         }
-//        createPayment(userId, orderNo, fee, paymentType);
+        createPayment(userId, orderNo, fee, paymentType);
         AlipayTradePagePayResponse response;
         try {
-            response = Factory.Payment.Page().optional("qr_pay_mode", 4).pay(goodsName, orderNo, fee.toString(), "https://www.baidu.com");
+            response = Factory.Payment.Page().pay(goodsName, orderNo, fee.toString(), "http://localhost:8000/order?step=4");
             log.info("支付宝下单成功:{}", mObjectMapper.writeValueAsString(response));
         } catch (Exception e) {
             log.error("支付宝下单失败:{}", orderNo);
@@ -89,39 +86,15 @@ public class AliPayServiceImpl implements AliPayService {
     }
 
     @Override
-    public void aliPayNotify(HttpServletRequest request) {
-        // translate request to result map
-        Map<String, String> result = callbackRequestToMap(request);
-
-        // check result map
-        Boolean verify = false;
-        try {
-            verify = Factory.Payment.Common().verifyNotify(result);
-        } catch (Exception ignore) {
-        }
-        // 封装成model
-        AliPayResponse response = mapToAliPayResponse(result);
-        if (!verify) {
-            log.error("支付宝订单校验失败:{}", response.getOutTradeNo());
-            return;
-        }
+    public void aliPayNotify(String orderSn) {
         QueryWrapper<Payment> wrapper = new QueryWrapper<>();
-        wrapper.eq("order_sn", response.getOutTradeNo());
-        wrapper.eq("pay_mode", PaymentMode.ALIPAY);
+        wrapper.eq("order_sn", orderSn);
         Payment payment = mPaymentMapper.selectOne(wrapper);
         if (payment == null || ObjectUtils.nullSafeEquals(PaymentStatus.NOT_PAY.getCode(), payment.getStatus())) {
             // 不是待支付的状态 避免重复处理
             return;
         }
-        if (response.getTradeStatus() == AliPayTradeStatus.TRADE_SUCCESS) {
-            // 检查金额是否正确
-            if (!Objects.equals(response.getTotalAmount(), String.valueOf(payment.getFee()))) {
-                log.error("订单金额不正确，用户支付金额(分):{}，系统订单金额(分):{}",
-                        response.getTotalAmount(), payment.getFee());
-                return;
-            }
-            paySuccess(payment, toInstant(response.getGmtPayment()));
-        }
+            paySuccess(payment, Instant.now());
     }
 
     /**
@@ -206,6 +179,8 @@ public class AliPayServiceImpl implements AliPayService {
         pojo.setStatus(PaymentStatus.NOT_PAY.getCode());
         pojo.setPayMode(PaymentMode.ALIPAY.getCode());
         pojo.setType(type.getCode());
+        pojo.setCreatedAt(Instant.now().getEpochSecond());
+        pojo.setUpdatedAt(Instant.now().getEpochSecond());
         mPaymentMapper.insert(pojo);
     }
 

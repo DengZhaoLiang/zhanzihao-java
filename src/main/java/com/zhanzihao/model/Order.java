@@ -37,11 +37,6 @@ public class Order {
     private BigDecimal totalPrice;
 
     /**
-     * 地址ID
-     */
-    private Long addressId;
-
-    /**
      * 支付成功时间
      */
     private Long payAt;
@@ -50,6 +45,11 @@ public class Order {
      * 付款状态 :1-待支付,2-已支付
      */
     private Integer status;
+
+    /**
+     * 地址ID
+     */
+    private Long addressId;
 
     /**
      * 创建时间

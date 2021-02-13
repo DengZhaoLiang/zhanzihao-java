@@ -1,5 +1,8 @@
 package com.zhanzihao.controller.api.order;
 
+import com.alipay.easysdk.payment.page.models.AlipayTradePagePayResponse;
+import com.zhanzihao.dto.api.order.AliPayResponse;
+import com.zhanzihao.dto.api.order.OrderRequest;
 import com.zhanzihao.dto.api.order.OrderResponse;
 import com.zhanzihao.service.api.order.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,8 +33,8 @@ public class OrderController {
         return mOrderService.pageOrders(userId, pageable);
     }
 
-    @GetMapping("")
-    public void createOrder() {
-        mOrderService.createOrder();
+    @PostMapping("buy")
+    public AliPayResponse createOrder(@RequestBody @Validated OrderRequest request) {
+        return mOrderService.createOrder(request);
     }
 }

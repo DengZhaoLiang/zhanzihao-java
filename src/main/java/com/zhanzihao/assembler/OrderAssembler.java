@@ -16,5 +16,6 @@ public interface OrderAssembler {
     AdminOrderResponse toResponse(Order order);
 
     @Mapping(target = "products", ignore = true)
+    @Mapping(target = "address", ignore = true)
     OrderResponse toApiResponse(Order order);
 }
