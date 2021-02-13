@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Instant;
+
 /**
  * @author zhanzihao
  * 2021-02-10
@@ -30,11 +32,14 @@ public class UserController {
 
     @PostMapping("register")
     public void register(@RequestBody @Validated User user) {
+        user.setCreatedAt(Instant.now().getEpochSecond());
+        user.setUpdatedAt(Instant.now().getEpochSecond());
         mUserService.register(user);
     }
 
     @PutMapping("")
     public User updateUser(@RequestBody @Validated User user) {
+        user.setUpdatedAt(Instant.now().getEpochSecond());
         return mUserService.updateUser(user);
     }
 }
